@@ -2,36 +2,37 @@
   <TresCanvas clear-color="#82DBC5" window-size>
     <Stats />
     <TresPerspectiveCamera />
-    <TresMesh :position="[0, 0, 0]" ref="cubeRef">
-      <TresBoxGeometry />
+    <OrbitControls />
+    <TresMesh :position="[0, 0, 0]" ref="torusRef">
+      <TresTorusKnotGeometry :args="[1, 0.3, 100, 16]" />
       <TresMeshNormalMaterial />
     </TresMesh>
 
-    <!-- <TresAxesHelper /> -->
+    <TresAxesHelper />
   </TresCanvas>
 </template>
 
 <script setup>
   import { useRenderLoop, useTres } from '@tresjs/core';
   import { shallowRef, watchEffect } from 'vue';
-  import { Stats } from '@tresjs/cientos';
+  import { Stats, OrbitControls } from '@tresjs/cientos';
 
-  const cubeRef = shallowRef();
+  const torusRef = shallowRef();
 
   const { onLoop } = useRenderLoop();
 
-  onLoop(({ delta, elapsed }) => {
-    if (cubeRef.value) {
-      cubeRef.value.rotation.x += delta;
-      cubeRef.value.rotation.y = elapsed;
+  // onLoop(({ delta, elapsed }) => {
+  //   if (torusRef.value) {
+  //     torusRef.value.rotation.x += delta;
+  //     torusRef.value.rotation.y += delta;
 
-      cubeRef.value.position.x = Math.sin(elapsed * 2);
+  //     // torusRef.value.position.x = Math.sin(elapsed * 2);
 
-      cubeRef.value.scale.set(Math.sin(elapsed * 2), Math.sin(elapsed * 2), Math.sin(elapsed * 2));
-    }
-  });
+  //     // torusRef.value.scale.set(Math.sin(elapsed * 2), Math.sin(elapsed * 2), Math.sin(elapsed * 2));
+  //   }
+  // });
 
   // watchEffect(() => {
-  //   console.log('cubeRef', cubeRef);
+  //   console.log('torusRef', torusRef);
   // });
 </script>
